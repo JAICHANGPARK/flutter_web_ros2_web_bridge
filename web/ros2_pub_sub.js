@@ -4,11 +4,13 @@
 
   // If there is an error on the backend, an 'error' emit will be emitted.
   ros.on('error', function(error) {
+
 <!--    document.getElementById('connecting').style.display = 'none';-->
 <!--    document.getElementById('connected').style.display = 'none';-->
 <!--    document.getElementById('closed').style.display = 'none';-->
 <!--    document.getElementById('error').style.display = 'inline';-->
     console.log(error);
+     window.parent.postMessage("{error:$error}");
   });
 
   // Find out exactly when we made a connection.
