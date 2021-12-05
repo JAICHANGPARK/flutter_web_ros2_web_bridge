@@ -84,6 +84,7 @@ class _MyHomePageState extends State<MyHomePage> {
     html.window.addEventListener("message", (event) {
       // print(event);
       html.MessageEvent event2 = event as html.MessageEvent;
+      print("Origin: ${event2.origin}");
       print(event2.data);
       setState(() {
         pubData = event2.data ?? "";
@@ -99,6 +100,7 @@ class _MyHomePageState extends State<MyHomePage> {
     js.context.callMethod('logger', ["hello"]);
     var state = js.JsObject.fromBrowserObject(js.context['state']);
     print(state['hello']);
+    html.window.open("https://naver.com", "");
     setState(() {
       _counter++;
     });
