@@ -1,6 +1,8 @@
   // Connecting to ROS
   // -----------------
   var ros = new ROSLIB.Ros();
+  var isConnected = false;
+   var count = 0;
 
   // If there is an error on the backend, an 'error' emit will be emitted.
   ros.on('error', function(error) {
@@ -10,12 +12,29 @@
 <!--    document.getElementById('closed').style.display = 'none';-->
 <!--    document.getElementById('error').style.display = 'inline';-->
     console.log(error);
-     window.parent.postMessage("{error:$error}");
+  var obj = new Object();
+   obj.connecting  = false;
+   obj.connected  = false;
+   obj.closed  = false;
+   obj.error  = error;
+   var jsonString= JSON.stringify(obj);
+   console.log(error + jsonString);
+     window.parent.postMessage(jsonString, "*");
   });
 
   // Find out exactly when we made a connection.
   ros.on('connection', function() {
     console.log('Connection made!');
+    isConnected = true;
+
+    var obj = new Object();
+       obj.connecting  = false;
+       obj.connected  = true;
+       obj.closed  = false;
+       obj.error  = "";
+       var jsonString= JSON.stringify(obj);
+       console.log('Connection made!' + jsonString);
+         window.parent.postMessage(jsonString, "*");
 
 <!--    document.getElementById('connecting').style.display = 'none';-->
 <!--    document.getElementById('error').style.display = 'none';-->
@@ -25,6 +44,14 @@
 
   ros.on('close', function() {
     console.log('Connection closed.');
+    isConnected = false;
+    var obj = new Object();
+       obj.connecting  = false;
+           obj.connected  = false;
+           obj.closed  = true;
+           obj.error  = "";
+           var jsonString= JSON.stringify(obj);
+             window.parent.postMessage(jsonString, "*");
 <!--    document.getElementById('connecting').style.display = 'none';-->
 <!--    document.getElementById('connected').style.display = 'none';-->
 <!--    document.getElementById('closed').style.display = 'inline';-->
@@ -40,12 +67,17 @@
     messageType : 'std_msgs/String'
   });
 
-  var count = 0;
+
   setInterval(() => {
     var message = 'hello from ros2bridge ' + count++;
     example.publish({data: message});
-    console.log('publish' + message);
-     window.parent.postMessage('publish' + message, "*");
+    if(isConnected){
+     console.log('publish' + message);
+         window.parent.postMessage('publish' + message, "*");
+    }else{
+       console.log("Not Connected");
+    }
+
 <!--    document.getElementById("publisher").innerText = message;-->
   }, 1000);
 
