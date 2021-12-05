@@ -1,6 +1,10 @@
-# flutter_web_sandbox
+# flutter Ros2 Web Bridge
 
 A new Flutter project.
+
+```
+flutter run -d chrome --web-port=3000
+```
 
 ## Getting Started
 
