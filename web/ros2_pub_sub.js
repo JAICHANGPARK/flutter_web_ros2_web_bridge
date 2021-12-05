@@ -14,6 +14,7 @@
   // Find out exactly when we made a connection.
   ros.on('connection', function() {
     console.log('Connection made!');
+
 <!--    document.getElementById('connecting').style.display = 'none';-->
 <!--    document.getElementById('error').style.display = 'none';-->
 <!--    document.getElementById('closed').style.display = 'none';-->
