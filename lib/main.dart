@@ -103,6 +103,12 @@ class _MyHomePageState extends State<MyHomePage> {
       _counter++;
     });
   }
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    html.window.removeEventListener('message', (e){}, true);
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
