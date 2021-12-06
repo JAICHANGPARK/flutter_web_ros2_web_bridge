@@ -84,12 +84,11 @@ class _MyHomePageState extends State<MyHomePage> {
     html.window.addEventListener("message", (event) {
       // print(event);
       html.MessageEvent event2 = event as html.MessageEvent;
-      print("Origin: ${event2.origin}");
-      print(event2.data);
+      // print("Origin: ${event2.origin}");
+      print("Get FrontData: " + event2.data);
       setState(() {
         pubData = event2.data ?? "";
       });
-
     });
     //------------------------------------------------
   }
