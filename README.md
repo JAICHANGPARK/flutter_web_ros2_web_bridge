@@ -1,6 +1,6 @@
 # flutter Ros2 Web Bridge
 
-A new Flutter project.
+ros2 web bridge operation check completed.
 
 ```
 flutter run -d chrome --web-port=3000
